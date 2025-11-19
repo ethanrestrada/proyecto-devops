@@ -1,0 +1,46 @@
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.input-control {
+  display: flex;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.input-icon {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9e5e5;
+  padding: 0 0.65rem;
+  color: #767171;
+  border-radius: 0.25rem 0 0 0.25rem;
+  font-size: 18px;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.error-message {
+  display: block;
+  margin-top: 5px;
+  color: #f50808;
+  text-align: left;
+}
+
+.input-control input,
+.input-control select {
+  border: thin solid #dedede;
+  border-radius: 0 0.25rem 0.25rem 0;
+  padding: 10px;
+  outline: none;
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  line-height: 1;
+  background-color: transparent;
+}

@@ -1,0 +1,44 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_prod
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tienda_parcial
+      MYSQL_USER: ethanuser
+      MYSQL_PASSWORD: app123_
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - prodnet
+
+  backend:
+    image: ethanr25/tienda-backend:latest
+    container_name: backend_prod
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    ports:
+      - "3001:3001"
+    networks:
+      - prodnet
+
+  frontend:
+    image: ethanr25/tienda-frontend:latest
+    container_name: frontend_prod
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - prodnet
+
+networks:
+  prodnet:
+
+volumes:
+  mysql_data:
