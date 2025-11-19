@@ -96,7 +96,7 @@ export default function CrudForm({
           errorMessage={errors.email}
         />
         <FormControl
-          icon="fa-solid fa-envelope"
+          icon="fa-solid fa-location-dot"
           label="Dirección de envio"
           type="text"
           placeholder="Direccion de envio"
