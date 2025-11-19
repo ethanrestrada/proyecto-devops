@@ -99,7 +99,7 @@ export default function CrudForm({
           icon="fa-solid fa-location-dot"
           label="Dirección de envio"
           type="text"
-          placeholder="Direccion de envio"
+          placeholder="Dirección de envio"
           name="direccion_envio"
           onChange={handleChange}
           value={form.direccion_envio}
