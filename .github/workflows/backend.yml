@@ -5,7 +5,7 @@ on:
     paths:
       - "backend/**"
       - ".github/workflows/backend.yml"
-    branches: ["main"]
+    branches: ["master"]
 
 jobs:
   build-and-push:
