@@ -36,6 +36,6 @@ async function connectWithRetry(retries = 15, delay = 3000) {
   await sequelize.sync();
   app.listen(3001, "0.0.0.0", () => {
     console.log("Backend escuchando en 3001");
-    console.log("Cambio");
+    console.log("Cambio 2");
   });
 })();
