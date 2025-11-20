@@ -1,28 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tienda-backend
+  name: backend
+  # namespace: tienda
 spec:
-  replicas: 2
+  replicas: 2 # alta disponibilidad
   selector:
     matchLabels:
-      app: tienda-backend
+      app: backend
   template:
     metadata:
       labels:
-        app: tienda-backend
+        app: backend
     spec:
       containers:
         - name: backend
           image: ethanr25/tienda-backend:latest
           env:
             - name: DB_HOST
-              value: "mysql"
+              value: mysql
             - name: DB_USER
-              value: "ethanuser"
-            - name: DB_PASSWORD
-              value: "app123_"
-            - name: DB_NAME
-              value: "tienda_parcial"
+              value: ethanuser
+            - name: DB_PASS
+              value: app123_
           ports:
             - containerPort: 3001

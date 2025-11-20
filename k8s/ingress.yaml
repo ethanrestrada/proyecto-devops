@@ -3,17 +3,13 @@ kind: Ingress
 metadata:
   name: tienda-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
-
-  # --- HTTPS ---
   tls:
     - hosts:
         - tienda.local
       secretName: tienda-tls
-
-  # --- Rutas HTTP/HTTPS ---
   rules:
     - host: tienda.local
       http:
@@ -22,13 +18,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend-service
+                name: frontend
                 port:
                   number: 80
+
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: backend-service
+                name: backend
                 port:
                   number: 3001
