@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: tienda-frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: frontend
+      app: tienda-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: tienda-frontend
     spec:
       containers:
         - name: frontend

@@ -13,12 +13,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   let api = helpHttp();
-  // let url = "http://backend:3001/clientes";
-  let url = "http://host.docker.internal:3001/clientes";
-  // let url = "http://backend_prod:3001/clientes";
-  // let url = "http://backend-service:3001/clientes";
-  // let url = process.env.REACT_APP_API;
-  // const url = `${process.env.REACT_APP_API}/clientes`
+  // let url = "http://host.docker.internal:3001/clientes";
+  let url = "http://localhost:3001/clientes";
 
   useEffect(() => {
     setIsLoading(true);

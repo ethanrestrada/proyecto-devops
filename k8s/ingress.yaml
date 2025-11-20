@@ -5,12 +5,15 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
+
+  # --- HTTPS ---
   tls:
     - hosts:
         - tienda.local
-        - api.tienda.local
       secretName: tienda-tls
 
+  # --- Rutas HTTP/HTTPS ---
   rules:
     - host: tienda.local
       http:
@@ -22,11 +25,7 @@ spec:
                 name: frontend-service
                 port:
                   number: 80
-
-    - host: api.tienda.local
-      http:
-        paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
