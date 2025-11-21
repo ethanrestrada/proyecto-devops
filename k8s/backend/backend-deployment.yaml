@@ -16,6 +16,7 @@ spec:
       containers:
         - name: backend
           image: ethanr25/tienda-backend:latest
+          imagePullPolicy: Always
           env:
             - name: DB_HOST
               value: mysql
