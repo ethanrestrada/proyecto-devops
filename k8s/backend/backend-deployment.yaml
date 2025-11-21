@@ -17,6 +17,7 @@ spec:
         - name: backend
           image: ethanr25/tienda-backend:latest
           imagePullPolicy: Always
+          command: ["sh", "-c", "node app.js || sleep 3600"]
           env:
             - name: DB_HOST
               value: mysql
@@ -24,5 +25,7 @@ spec:
               value: ethanuser
             - name: DB_PASS
               value: app123_
+            - name: DB_NAME
+              value: tienda_parcial
           ports:
             - containerPort: 3001
