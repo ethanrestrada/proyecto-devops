@@ -16,7 +16,7 @@ app.use(
 );
 
 //Maquetar las rutas
-app.use("/", ClienteRoutes);
+app.use("/api", ClienteRoutes);
 
 async function connectWithRetry(retries = 15, delay = 3000) {
   while (retries) {
