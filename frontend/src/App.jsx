@@ -15,7 +15,13 @@ function App() {
   let api = helpHttp();
   // let url = "http://host.docker.internal:3001/clientes";
   // let url = "http://localhost:3001/clientes";
-  let url = "https://tienda.local/api/clientes";
+  const apiBase = window.location.origin.includes("tienda.local")
+    ? "https://tienda.local"
+    : "https://tienda-api.duckdns.org";
+
+  let url = `${apiBase}/api/clientes`;
+
+  // let url = "https://tienda.local/api/clientes";
   // let url = "https://tienda.local/api";
 
   useEffect(() => {
