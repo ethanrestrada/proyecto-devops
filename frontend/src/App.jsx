@@ -16,7 +16,7 @@ function App() {
   // let url = "http://host.docker.internal:3001/clientes";
   // let url = "http://localhost:3001/clientes";
   const apiBase = window.location.origin.includes("tienda.local")
-    ? "https://tienda.local"
+    ? "https://tienda.local123"
     : "https://tienda-api.duckdns.org";
 
   let url = `${apiBase}/api/clientes`;
