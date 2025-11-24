@@ -14,15 +14,19 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Bajar código
+      - name: Descargar código
         uses: actions/checkout@v3
 
-      - name: Configurar kubeconfig
+      - name: Preparar kubeconfig (Windows)
+        shell: powershell
         run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          if (!(Test-Path "$env:USERPROFILE\.kube")) {
+            New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.kube" | Out-Null
+          }
+          Set-Content -Path "$env:USERPROFILE\.kube\config" -Value "${{ secrets.KUBECONFIG }}"
 
       - name: Reiniciar deployments
+        shell: bash
         run: |
           kubectl rollout restart deployment backend
           kubectl rollout restart deployment frontend
