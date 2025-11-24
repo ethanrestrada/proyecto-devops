@@ -15,7 +15,7 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client
 
-            - name: Deploy to VPS
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -27,4 +27,3 @@ jobs:
             docker system prune -af
             docker compose pull
             docker compose up -d --remove-orphans
-
