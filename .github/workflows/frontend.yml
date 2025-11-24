@@ -24,7 +24,7 @@ jobs:
       - name: Build frontend image
         run: |
           cd frontend
-          docker build --no-cache -t ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest .
 
       - name: Push frontend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest
