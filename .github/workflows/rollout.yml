@@ -1,0 +1,18 @@
+name: Build and Deploy to Minikube
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Bajar código
+        uses: actions/checkout@v3
+
+      - name: Actualizar Minikube
+        run: |
+          kubectl rollout restart deployment frontend
+          kubectl rollout restart deployment backend
