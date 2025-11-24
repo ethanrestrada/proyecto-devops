@@ -17,18 +17,9 @@ jobs:
       - name: Descargar código
         uses: actions/checkout@v3
 
-      - name: Preparar kubeconfig (Windows)
+      - name: Reiniciar deployments con minikube kubectl
         shell: powershell
         run: |
-          $kubeDir = "$env:USERPROFILE\.kube"
-          if (!(Test-Path $kubeDir)) {
-            New-Item -ItemType Directory -Force -Path $kubeDir | Out-Null
-          }
-
-          Set-Content -Path "$kubeDir\config" -Value "${{ secrets.KUBECONFIG }}"
-
-      - name: Reiniciar deployments
-        shell: powershell
-        run: |
-          kubectl rollout restart deployment/backend
-          kubectl rollout restart deployment/frontend
+          minikube status
+          minikube kubectl -- rollout restart deployment backend
+          minikube kubectl -- rollout restart deployment frontend
