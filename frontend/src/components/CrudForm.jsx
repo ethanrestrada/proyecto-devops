@@ -74,7 +74,7 @@ export default function CrudForm({
   return (
     <div>
       <h3>{dataToEdit ? "Editar" : "Agregar"}</h3>
-      <span>cambio aquiiiiiiiiiiiiii 5</span>
+      <span>cambio aqui 6</span>
       <form onSubmit={handleSubmit}>
         <FormControl
           icon="fa-solid fa-user"
