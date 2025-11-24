@@ -17,14 +17,6 @@ jobs:
       - name: Descargar código
         uses: actions/checkout@v3
 
-      - name: Iniciar Minikube si no está corriendo
-        shell: powershell
-        run: |
-          $status = minikube status --format '{{.Host}}'
-          if ($status -ne "Running") {
-            minikube start --driver=docker
-          }
-
       - name: Reiniciar deployments con minikube kubectl
         shell: powershell
         run: |
