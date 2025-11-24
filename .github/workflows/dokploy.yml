@@ -15,7 +15,19 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client
 
-      - name: Deploy to VPS
+      - name: Build and Push Backend
+        run: |
+          cd backend
+          docker build --no-cache -t ${{ secrets.DOCKERHUB_USERNAME }}/tienda-backend:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tienda-backend:latest
+
+      - name: Build and Push Frontend
+        run: |
+          cd frontend
+          docker build --no-cache -t ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest
+
+      - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -23,8 +35,5 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /etc/dokploy/compose/tienda-server-rnjdz9/code
-            docker compose down
-            docker rmi ethanr25/tienda-frontend:latest || true
-            docker system prune -af
             docker compose pull
             docker compose up -d --remove-orphans
