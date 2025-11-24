@@ -1,29 +1,29 @@
-name: Deploy to Dokploy
+# name: Deploy to Dokploy
 
-on:
-  push:
-    branches: ["master"]
+# on:
+#   push:
+#     branches: ["master"]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client
+#       - name: Install SSH client
+#         run: sudo apt-get install -y openssh-client
 
-      - name: Deploy to VPS
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /etc/dokploy/compose/tienda-server-rnjdz9/code
-            docker compose down
-            docker system prune -af
-            docker compose pull
-            docker compose up -d --remove-orphans
+#       - name: Deploy to VPS
+#         uses: appleboy/ssh-action@v1.0.0
+#         with:
+#           host: ${{ secrets.VPS_HOST }}
+#           username: ${{ secrets.VPS_USER }}
+#           key: ${{ secrets.VPS_SSH_KEY }}
+#           script: |
+#             cd /etc/dokploy/compose/tienda-server-rnjdz9/code
+#             docker compose down
+#             docker system prune -af
+#             docker compose pull
+#             docker compose up -d --remove-orphans
