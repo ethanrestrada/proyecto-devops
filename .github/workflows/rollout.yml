@@ -20,13 +20,15 @@ jobs:
       - name: Preparar kubeconfig (Windows)
         shell: powershell
         run: |
-          if (!(Test-Path "$env:USERPROFILE\.kube")) {
-            New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.kube" | Out-Null
+          $kubeDir = "$env:USERPROFILE\.kube"
+          if (!(Test-Path $kubeDir)) {
+            New-Item -ItemType Directory -Force -Path $kubeDir | Out-Null
           }
-          Set-Content -Path "$env:USERPROFILE\.kube\config" -Value "${{ secrets.KUBECONFIG }}"
+
+          Set-Content -Path "$kubeDir\config" -Value "${{ secrets.KUBECONFIG }}"
 
       - name: Reiniciar deployments
-        shell: bash
+        shell: powershell
         run: |
-          kubectl rollout restart deployment backend
-          kubectl rollout restart deployment frontend
+          kubectl rollout restart deployment/backend
+          kubectl rollout restart deployment/frontend
