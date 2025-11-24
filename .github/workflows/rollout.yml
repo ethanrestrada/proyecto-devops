@@ -5,14 +5,23 @@ on:
     branches: ["master"]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: self-hosted
+
+    needs:
+      - build-backend
+      - build-frontend
 
     steps:
       - name: Bajar código
         uses: actions/checkout@v3
 
-      - name: Actualizar Minikube
+      - name: Configurar kubeconfig
         run: |
-          kubectl rollout restart deployment frontend
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+
+      - name: Reiniciar deployments
+        run: |
           kubectl rollout restart deployment backend
+          kubectl rollout restart deployment frontend
