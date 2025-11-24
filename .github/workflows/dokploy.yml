@@ -24,6 +24,7 @@ jobs:
           script: |
             cd /etc/dokploy/compose/tienda-server-rnjdz9/code
             docker compose down
+            docker rmi ethanr25/tienda-frontend:latest || true
             docker system prune -af
             docker compose pull
             docker compose up -d --remove-orphans
