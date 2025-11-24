@@ -1,31 +1,30 @@
-name: Deploy to Dokploy
+name: Build & Deploy Frontend
 
 on:
-  workflow_run:
-    workflows:
-      - "Build & Deploy Backend"
-      - "Build & Deploy Frontend"
-    types:
-      - completed
+  push:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend.yml"
+    branches: ["master"]
 
 jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /etc/dokploy/compose/tienda-server-rnjdz9/code
-            docker compose down
-            docker image prune -af
-            docker compose pull --quiet
-            docker compose up -d --force-recreate --remove-orphans
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build frontend image
+        run: |
+          cd frontend
+          docker build --no-cache -t ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest .
+
+      - name: Push frontend image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/tienda-frontend:latest
